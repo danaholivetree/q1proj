@@ -10,11 +10,15 @@ $(document).ready(function() {
 
   let ltrs = []
   let board = []
+  let sel = 0
+  let currentWord=[]
   //set default TIMER
 
 
   $('#gridSelect').click(function selectGridSize(e) {
     tar = e.target
+    $(tar).addClass("blue lighten-4")
+    $('#gridSelect div').not(tar).removeClass("blue lighten-4")
     val = $(tar).attr('data-value')
     if (val == 4) {
       makeCubeArrays(fourCubes)
@@ -24,7 +28,7 @@ $(document).ready(function() {
     // else if (val === 6) {
     //   makeCubeArrays(sixCubes)
     // }
-    fillGrid(val) //move this to "Shake! function?"
+    fillGrid(val)
 
     //START TIMER
   })
@@ -77,15 +81,39 @@ $(document).ready(function() {
   }
 
   $(document).keydown(function(e) {
-    if (e.which == 13) {
-      event.preventDefault();
-      $("form #words").submit();
+    if (e.which===8){
+      $('#grid>div:contains(' + currentWord[currentWord.length-1] + ')').removeClass("blue lighten-2")
+      currentWord.pop()
+      console.log(currentWord)
     }
 
-    let sel = e.key.toUpperCase()
-    // if (sel > 64 && sel < 91) {
-    $('#grid>div:contains(' + sel + ')').toggleClass("blue")
-    // }
+
+    if (e.which > 64 && e.which < 91) {
+      sel = e.key.toUpperCase()
+      $('#grid>div:contains(' + sel + ')').addClass("blue lighten-2")
+      currentWord.push(sel)
+      console.log(currentWord)
+    }
   })
+
+  $("form").submit(function( event ) {
+    event.preventDefault();
+    let textInput = $('input:text')
+    console.log(textInput.val())
+    let goodWord = $('<li>').text(textInput.val())
+    $('#list').append(goodWord)
+    textInput.val('')
+
+  })
+
+//   $( "form #words" ).submit(function( event ) {
+//   event.preventDefault();
+//   if ( $( "input:first" ).val() === "correct" ) {
+//     $( "span" ).text( "Validated..." ).show();
+//     return;
+//   }
+//
+//   $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+// });
 
 })

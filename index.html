@@ -21,19 +21,19 @@
         <div id="slide-out" class="side-nav fixed grey lighten-2">
           <div class="row">
             <ul>
-              <li class="col s12 m12 l12 black-text black-text grey">Grid Size:</li>
+              <li class="col s12 m12 l12 black-text black-text grey center">Select Grid Size:</li>
               <div id="gridSelect">
                 <li class="col s4 m4 l4"><a href="#!" data-value=4>4X4</a></li>
                 <li class="col s4 m4 l4"><a href="#!" data-value=5>5X5</a></li>
                 <li class="col s4 m4 l4">
                   <!--<a href="#!" data-value=6>6X6</a></li> -->
               </div>
-              <li class="col s12 m12 l12 black-text grey">Minimum Word Length:</li>
+              <li class="col s12 m12 l12 black-text grey center">Select Minimum Word Length:</li>
               <li class="col s4 m4 l4" id="threes"><a href="#!">3</a></li>
               <li class="col s4 m4 l4" id="fours"><a href="#!">4</a></li>
               <li class="col s4 m4 l4" id="fives"><a href="#!">5</a></li>
 
-              <li class="col s12 m12 l12 black-text grey">Timer</li>
+              <li class="col s12 m12 l12 black-text grey center">Select Timer</li>
               <li class="col s4 m4 l4" id="twoTime"><a href="#!">2:00</a></li>
               <li class="col s4 m4 l4" id="threeTime"><a href="#!">3:00</a></li>
               <li class="col s4 m4 l4" id="fourTime"><a href="#!">4:00</a></li>
@@ -45,20 +45,27 @@
   </header>
   <main>
     <div class="row">
-      <div class="" id="grid"></div>
-    </div>
-    <div class='row'>
+      <div class="col m12 l12">
+        <div class="" id="grid"></div>
+        <div class="col m4 l4 right" id="list-grid">
+          <ul id="list">
+            <li><strong>Words Found</strong></li>
+
+          </ul>
+        </div>
+      </div>
+
       <form class="col s12 m4 l4" id="words">
         <fieldset>
-          <label for="target">enter words here</label>
-          <input id="target" type="text">
+          <label for="target">Find words as fast as you can!</label>
+          <input id="target" type="text" placeholder="type a word and press enter">
         </fieldset>
       </form>
     </div>
 
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
-      <script type="text/javascript" src="boggle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script type="text/javascript" src="boggle.js"></script>
 </body>
 
 </html>
