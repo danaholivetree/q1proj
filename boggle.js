@@ -24,7 +24,7 @@ $(document).ready(function() {
     // else if (val === 6) {
     //   makeCubeArrays(sixCubes)
     // }
-    // fillGrid(val)  //move these to "Shake! function?"
+    fillGrid(val) //move this to "Shake! function?"
 
     //START TIMER
   })
@@ -45,7 +45,7 @@ $(document).ready(function() {
     ltrs = mixCubes.map(function(el) {
       return el[0][Math.floor(6 * Math.random())]
     })
-    fillGrid(Math.sqrt(it.length))
+    // fillGrid(Math.sqrt(it.length))
   }
 
   function fillGrid(val) {
@@ -56,7 +56,7 @@ $(document).ready(function() {
       $('#grid').append(slot)
       slot.text(ltrs[i])
     }
-      $("#target").focus();
+    $("#target").focus();
   }
 
   function makeNeighborhood(x, y, board) {
@@ -74,14 +74,18 @@ $(document).ready(function() {
     }
 
     return neighborhood.map((el) => board[el[0]][el[1]])
-}
+  }
 
   $(document).keydown(function(e) {
-    // let sel = e.which
-    // if (sel > 64 && sel < 91) {
-    //     console.log(e.key.toUpperCase())
-    // }
+    if (e.which == 13) {
+      event.preventDefault();
+      $("form #words").submit();
+    }
 
+    let sel = e.key.toUpperCase()
+    // if (sel > 64 && sel < 91) {
+    $('#grid>div:contains(' + sel + ')').toggleClass("blue")
+    // }
   })
 
 })
