@@ -1,0 +1,26 @@
+header, main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+#grid {
+  height: 252px;
+  width: 252px;
+  border: 1px solid black;
+  margin: 30px 30px 0;
+}
+
+.slot {
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  float: left;
+  border: 1px black solid;
+  font-size: 36px;
+  text-align:center;
+}
