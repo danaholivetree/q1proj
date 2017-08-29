@@ -10,18 +10,20 @@ $(document).ready(function() {
 
   let ltrs = []
   let board = []
-  let sel = 0
-  let currentWord=[]
+  let currentWord = []
+  let splitCubes = []
+  //set defaults
   let val = 4
   let timeVal = 3
   let lengthVal = 4
-  let splitCubes=[]
 
+  let sel = 0
+
+  $('#timer').text(timeVal +":"+ 00)
 
   $('#gridSelect button').click(function selectGridSize(e) {
     e.preventDefault()
-    tar = e.target
-    val = $(tar).attr('data-value')
+    val = $(e.target).attr('data-value')
     if (val == 4) {
       makeCubeArrays(fourCubes)
     } else if (val == 5) {
@@ -33,33 +35,41 @@ $(document).ready(function() {
     fillGrid(val)
   })
 
-  $('#timeSelect').click(function selectTimer(e) {
-    e.preventDefault()
-    timeVal = $(e.target).attr('data-value')
-    $('#timer').text = timeVal + ":" + 00;
-
-  })
-
   $('#lengthSelect').click(function selectLength(e) {
     e.preventDefault()
     lengthVal = $(e.target).attr('data-value')
   })
 
-
+  $('#timeSelect').click(function selectTimer(e) {
+    e.preventDefault()
+    timeVal = $(e.target).attr('data-value')
+    $('#timer').text(timeVal +":"+ 00)
+    console.log($('#timer').text())
+  })
 
   function startTimer() {
-    var presentTime = $('timer').text();
+    var presentTime = $('#timer').html();
+
     var timeArray = presentTime.split(/[:]+/);
+console.log(timeArray)
     var m = timeArray[0];
     var s = checkSecond((timeArray[1] - 1));
-    if(s==59){m=m-1}
+    if (s === 59) {
+      m--
+    }
     //if(m<0){alert('timer completed')}
-    $('timer').text(m + ":" + s)
-    //setTimeout(startTimer, 1000)
+    $('timer').html(m + ":" + s)
+    setTimeout(startTimer, 1000)
+
   }
+
   function checkSecond(sec) {
-    if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
-    if (sec < 0) {sec = "59"};
+    if (sec < 10 && sec >= 0) {
+      sec = "0" + sec
+    }; // add zero in front of numbers < 10
+    if (sec < 0) {
+      sec = "59"
+    };
     return sec;
   }
 
@@ -68,16 +78,16 @@ $(document).ready(function() {
     splitCubes = cubes.map(function(el) {
       return el.split("")
     })
-
   }
 
-  $('#shake').click(function(){
+  $('#shake').click(function() {
     shake(splitCubes)
     for (let i = 0; i < ltrs.length; i++) {
       $('#grid div').eq(i).text(ltrs[i])
     }
     $("#target").focus();
     startTimer();
+    console.log('starting timer supposedly')
   })
 
   function shake(it) {
@@ -118,8 +128,8 @@ $(document).ready(function() {
   }
 
   $(document).keydown(function(e) {
-    if (e.which===8){
-      $('#grid>div:contains(' + currentWord[currentWord.length-1] + ')').removeClass("blue lighten-2")
+    if (e.which === 8) {
+      $('#grid>div:contains(' + currentWord[currentWord.length - 1] + ')').removeClass("blue lighten-2")
       currentWord.pop()
       console.log(currentWord)
     }
@@ -133,26 +143,26 @@ $(document).ready(function() {
     }
   })
 
-  $("form").submit(function( event ) {
+  $("form").submit(function(event) {
     event.preventDefault();
     let textInput = $('input:text')
     console.log(textInput.val())
     let goodWord = $('<li>').text(textInput.val())
     $('#list').append(goodWord)
     textInput.val('')
-    currentWord =[]
+    currentWord = []
     $('#grid>div').removeClass("blue lighten-2")
 
   })
 
-//   $( "form #words" ).submit(function( event ) {
-//   event.preventDefault();
-//   if ( $( "input:first" ).val() === "correct" ) {
-//     $( "span" ).text( "Validated..." ).show();
-//     return;
-//   }
-//
-//   $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
-// });
+  //   $( "form #words" ).submit(function( event ) {
+  //   event.preventDefault();
+  //   if ( $( "input:first" ).val() === "correct" ) {
+  //     $( "span" ).text( "Validated..." ).show();
+  //     return;
+  //   }
+  //
+  //   $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+  // });
 
 })
