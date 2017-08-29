@@ -23,6 +23,16 @@ header, main, footer {
   float:left;
 }
 
+.btn {
+  background-color: grey;
+}
+
+.select {
+  color: black;
+  text-align: center;
+  background-color: ;
+}
+
 .slot {
   height: 50px;
   width: 50px;

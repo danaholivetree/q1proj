@@ -7,21 +7,20 @@ $(document).ready(function() {
 
   let fourCubes =
     "aaciot abilty abjmoq acdemp acelrs adenvz ahmors bfiorx denosw dknotu eefhiy egintv egkluy ehinps elpstu gilruw"
-  let val = 4
+
   let ltrs = []
   let board = []
   let sel = 0
   let currentWord=[]
-  //set default TIMER
+  let val = 4
+  let timeVal = 3
+  let lengthVal = 4
 
 
-  $('#gridSelect').click(function selectGridSize(e) {
+  $('#gridSelect button').click(function selectGridSize(e) {
     tar = e.target
-    console.log($('#gridSelect').children())
-    $('#gridSelect').children().removeClass("blue lighten-4")
-    $(tar).parent().addClass("blue lighten-4")
-
-
+    // $('#gridSelect').children().removeClass("blue lighten-4")
+    // $(tar).parent().addClass("blue lighten-4")
     val = $(tar).attr('data-value')
     if (val == 4) {
       makeCubeArrays(fourCubes)
@@ -33,7 +32,17 @@ $(document).ready(function() {
     // }
     fillGrid(val)
 
-    //START TIMER
+    //START TIMER - should go on "shake button"
+  })
+
+  $('#timeSelect').click(function selectTimer(e) {
+    timeVal = $(e.target).attr('data-value')
+
+  })
+
+  $('#lengthSelect').click(function selectLength(e) {
+    lengthVal = $(e.target).attr('data-value')
+    
   })
 
   function makeCubeArrays(list) {

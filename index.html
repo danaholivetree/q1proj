@@ -20,24 +20,30 @@
             <i class="material-icons">menu</i></a>
         <div id="slide-out" class="side-nav fixed grey lighten-2">
           <div class="row">
-            <ul>
-              <li class="col s12 m12 l12 black-text black-text grey center">Select Grid Size:</li>
-              <div id="gridSelect">
-                <li class="col s4 m4 l4"><a href="#!" data-value=4>4X4</a></li>
-                <li class="col s4 m4 l4"><a href="#!" data-value=5>5X5</a></li>
-                <li class="col s4 m4 l4">
-                  <!--<a href="#!" data-value=6>6X6</a></li> -->
-              </div>
-              <li class="col s12 m12 l12 black-text grey center">Select Minimum Word Length:</li>
-              <li class="col s4 m4 l4" id="threes"><a href="#!">3</a></li>
-              <li class="col s4 m4 l4" id="fours"><a href="#!">4</a></li>
-              <li class="col s4 m4 l4" id="fives"><a href="#!">5</a></li>
 
-              <li class="col s12 m12 l12 black-text grey center">Select Timer</li>
-              <li class="col s4 m4 l4" id="twoTime"><a href="#!">2:00</a></li>
-              <li class="col s4 m4 l4" id="threeTime"><a href="#!">3:00</a></li>
-              <li class="col s4 m4 l4" id="fourTime"><a href="#!">4:00</a></li>
-            </ul>
+              <div class="select col s12 m12 l12">Select Grid Size:</div>
+              <div id="gridSelect">
+                <button class="col s4 m4 l4 btn" data-value=4>4X4</button>
+                <button class="col s4 m4 l4 btn" data-value=5>5X5</button>
+                <button class="col s4 m4 l4 btn" data-value=6></button>
+              </div>
+
+              <div class="select col s12 m12 l12">Select Minimum Word Length:</div>
+              <div id="lengthSelect">
+                <button class="col s4 m4 l4 btn" data-value=3>3</a></button>
+                <button class="col s4 m4 l4 btn" data-value=4>4</a></button>
+                <button class="col s4 m4 l4 btn" data-value=5>5</a></button>
+              </div>
+
+              <div class="select col s12 m12 l12">Select Timer</div>
+              <div id="timeSelect">
+                <button class="col s4 m4 l4 btn" data-value=2>2:00</button>
+                <button class="col s4 m4 l4 btn" data-value=3>3:00</button>
+                <button class="col s4 m4 l4 btn" data-value=4>4:00</button>
+              </div>
+              <div class="select col s12 m12 l12">Ready?</div>
+              <button class="col s4 m4 l4 offset-s4 offset-m4 offset-l4 btn">SHAKE!</button>
+
           </div>
         </div>
       </div>
