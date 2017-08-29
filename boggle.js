@@ -16,10 +16,8 @@ $(document).ready(function() {
   let val = 4
   let timeVal = 3
   let lengthVal = 4
-
   let sel = 0
-
-  $('#timer').text(timeVal +":"+ 00)
+  $('#timer').text(timeVal +":"+ "00")
 
   $('#gridSelect button').click(function selectGridSize(e) {
     e.preventDefault()
@@ -43,35 +41,30 @@ $(document).ready(function() {
   $('#timeSelect').click(function selectTimer(e) {
     e.preventDefault()
     timeVal = $(e.target).attr('data-value')
-    $('#timer').text(timeVal +":"+ 00)
+    $('#timer').text(timeVal +":"+ "00")
   })
 
-  function startTimer() {
-    var presentTime = $('#timer').text();
+  function startTimer(min,sec) {
+    console.log(min+ ' '+sec)
+    let m = min
+    let s = sec
+    setInterval(function(){
+      if (m > 0 && s >= 0) {
+        console.log('m ' +m+ ' s '+ s)
+        if (s == 0) {
+          s = 59
+          m--
+        }
+        else s--
+        $('#timer').text(m.toString() + ":" + padLeft(s))
 
-    var timeArray = presentTime.split(/[:]+/)
-    var m = Number(timeArray[0])
-    console.log(typeof timeArray[1])
-    console.log(timeArray[1] - 1)
-    var s = Number(checkSecond((timeArray[1] - 1)))
-    if (s == 59) {
-      m--
-    }
-    //if(m<0){alert('timer completed')}
-    $('timer').text(m + ":" + s)
-    setInterval(startTimer, 1000)
-
+      }
+      else alert('time up!')
+    }, 1000)
   }
 
-  function checkSecond(sec) {
-    sec = Number(sec)
-    if (sec < 10 && sec >= 0) {
-      sec = "0" + sec
-    }; // add zero in front of numbers < 10
-    if (sec < 0) {
-      sec = "59"
-    };
-    return sec;
+  function padLeft(x) {
+    return x<10?`0${x}`:x.toString()
   }
 
   function makeCubeArrays(list) {
@@ -88,8 +81,7 @@ $(document).ready(function() {
       $('#grid div').eq(i).text(ltrs[i])
     }
     $("#target").focus();
-    startTimer();
-    console.log('starting timer supposedly')
+    startTimer(timeVal,0);
   })
 
   function shake(it) {
