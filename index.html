@@ -52,12 +52,20 @@
   <main>
     <div class="row">
       <div class="col s12 m12 l12">
+      <div class="col l4">
+        <div id="grid"></div>
+        <div>
+          <form class="col s12" id="words">
+            <fieldset>
+              <label for="target">Find words as fast as you can!</label>
+              <input id="target" type="text" placeholder="type a word and press enter">
+            </fieldset>
+          </form>
+        </div>
+      </div>
+        <div class="timer col m4 l4">Time Left:<span class='timer' id='timer'></span></div>
 
-        <div class="" id="grid"></div>
-
-        <div class="col l4 offset-l4">Time Left:<span id='timer'></span></div>
-
-        <div class="col l4 offset-l6" id='list-grid'>
+        <div class="col m4 l4" id='list-grid'>
           <ul id="list">
             <li><strong>Words Found</strong></li>
 
@@ -65,12 +73,7 @@
         </div>
       </div>
 
-      <form class="col s12 m4 l4" id="words">
-        <fieldset>
-          <label for="target">Find words as fast as you can!</label>
-          <input id="target" type="text" placeholder="type a word and press enter">
-        </fieldset>
-      </form>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

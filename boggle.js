@@ -44,26 +44,27 @@ $(document).ready(function() {
     e.preventDefault()
     timeVal = $(e.target).attr('data-value')
     $('#timer').text(timeVal +":"+ 00)
-    console.log($('#timer').text())
   })
 
   function startTimer() {
-    var presentTime = $('#timer').html();
+    var presentTime = $('#timer').text();
 
-    var timeArray = presentTime.split(/[:]+/);
-console.log(timeArray)
-    var m = timeArray[0];
-    var s = checkSecond((timeArray[1] - 1));
-    if (s === 59) {
+    var timeArray = presentTime.split(/[:]+/)
+    var m = Number(timeArray[0])
+    console.log(typeof timeArray[1])
+    console.log(timeArray[1] - 1)
+    var s = Number(checkSecond((timeArray[1] - 1)))
+    if (s == 59) {
       m--
     }
     //if(m<0){alert('timer completed')}
-    $('timer').html(m + ":" + s)
-    setTimeout(startTimer, 1000)
+    $('timer').text(m + ":" + s)
+    setInterval(startTimer, 1000)
 
   }
 
   function checkSecond(sec) {
+    sec = Number(sec)
     if (sec < 10 && sec >= 0) {
       sec = "0" + sec
     }; // add zero in front of numbers < 10
@@ -80,7 +81,8 @@ console.log(timeArray)
     })
   }
 
-  $('#shake').click(function() {
+  $('#shake').click(function(e) {
+    e.preventDefault()
     shake(splitCubes)
     for (let i = 0; i < ltrs.length; i++) {
       $('#grid div').eq(i).text(ltrs[i])
