@@ -7,7 +7,7 @@ $(document).ready(function() {
 
   let fourCubes =
     "aaciot abilty abjmoq acdemp acelrs adenvz ahmors bfiorx denosw dknotu eefhiy egintv egkluy ehinps elpstu gilruw"
-
+  let val = 4
   let ltrs = []
   let board = []
   let sel = 0
@@ -17,8 +17,11 @@ $(document).ready(function() {
 
   $('#gridSelect').click(function selectGridSize(e) {
     tar = e.target
-    $(tar).addClass("blue lighten-4")
-    $('#gridSelect div').not(tar).removeClass("blue lighten-4")
+    console.log($('#gridSelect').children())
+    $('#gridSelect').children().removeClass("blue lighten-4")
+    $(tar).parent().addClass("blue lighten-4")
+
+
     val = $(tar).attr('data-value')
     if (val == 4) {
       makeCubeArrays(fourCubes)
@@ -103,6 +106,8 @@ $(document).ready(function() {
     let goodWord = $('<li>').text(textInput.val())
     $('#list').append(goodWord)
     textInput.val('')
+    currentWord =[]
+    $('#grid>div').removeClass("blue lighten-2")
 
   })
 
