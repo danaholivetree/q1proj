@@ -20,29 +20,23 @@ $(document).ready(function() {
 
   $('#gridSelect button').click(function selectGridSize(e) {
     e.preventDefault()
-    console.log('grid selected')
     tar = e.target
-    // $('#gridSelect').children().removeClass("blue lighten-4")
-    // $(tar).parent().addClass("blue lighten-4")
     val = $(tar).attr('data-value')
     if (val == 4) {
       makeCubeArrays(fourCubes)
-      console.log("four by four cube arrays made")
     } else if (val == 5) {
       makeCubeArrays(fiveCubes)
-      console.log("five by five cube arrays made")
     }
     // else if (val === 6) {
     //   makeCubeArrays(sixCubes)
     // }
-    // fillGrid(val)  //this works
-
-    //START TIMER - should go on "shake button"
+    fillGrid(val)
   })
 
   $('#timeSelect').click(function selectTimer(e) {
     e.preventDefault()
     timeVal = $(e.target).attr('data-value')
+    $('#timer').text = timeVal + ":" + 00;
 
   })
 
@@ -51,7 +45,7 @@ $(document).ready(function() {
     lengthVal = $(e.target).attr('data-value')
   })
 
-  $('#timer').text = timeVal + ":" + 00;
+
 
   function startTimer() {
     var presentTime = $('timer').text();
@@ -71,32 +65,29 @@ $(document).ready(function() {
 
   function makeCubeArrays(list) {
     let cubes = list.toUpperCase().split(" ")
-
     splitCubes = cubes.map(function(el) {
       return el.split("")
     })
-    console.log(splitCubes)
-    //shake(splitCubes)
+
   }
 
   $('#shake').click(function(){
-
     shake(splitCubes)
+    for (let i = 0; i < ltrs.length; i++) {
+      $('#grid div').eq(i).text(ltrs[i])
+    }
+    $("#target").focus();
+    startTimer();
   })
 
   function shake(it) {
-
     let mixCubes = []
     while (it.length > 0) {
       mixCubes.push(it.splice(Math.floor((it.length) * Math.random()), 1))
     }
-
     ltrs = mixCubes.map(function(el) {
       return el[0][Math.floor(6 * Math.random())]
     })
-
-    console.log(Math.sqrt(ltrs.length))
-    fillGrid(Math.sqrt(ltrs.length))
   }
 
   function fillGrid(val) {
@@ -106,10 +97,7 @@ $(document).ready(function() {
       let slot = $('<div>')
       slot.width(250 / val).height(252 / val).addClass("slot")
       $('#grid').append(slot)
-      slot.text(ltrs[i])
     }
-    $("#target").focus();
-    startTimer();
   }
 
   function makeNeighborhood(x, y, board) {
