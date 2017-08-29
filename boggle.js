@@ -17,7 +17,7 @@ $(document).ready(function() {
   let timeVal = 3
   let lengthVal = 4
   let sel = 0
-  $('#timer').text(timeVal +":"+ "00")
+  $('#timer').text(timeVal + ":" + "00")
 
   $('#gridSelect button').click(function selectGridSize(e) {
     e.preventDefault()
@@ -33,64 +33,10 @@ $(document).ready(function() {
     fillGrid(val)
   })
 
-  $('#lengthSelect').click(function selectLength(e) {
-    e.preventDefault()
-    lengthVal = $(e.target).attr('data-value')
-  })
-
-  $('#timeSelect').click(function selectTimer(e) {
-    e.preventDefault()
-    timeVal = $(e.target).attr('data-value')
-    $('#timer').text(timeVal +":"+ "00")
-  })
-
-  function startTimer(min,sec) {
-    console.log(min+ ' '+sec)
-    let m = min
-    let s = sec
-    setInterval(function(){
-      if (m > 0 && s >= 0) {
-        console.log('m ' +m+ ' s '+ s)
-        if (s == 0) {
-          s = 59
-          m--
-        }
-        else s--
-        $('#timer').text(m.toString() + ":" + padLeft(s))
-
-      }
-      else alert('time up!')
-    }, 1000)
-  }
-
-  function padLeft(x) {
-    return x<10?`0${x}`:x.toString()
-  }
-
   function makeCubeArrays(list) {
     let cubes = list.toUpperCase().split(" ")
     splitCubes = cubes.map(function(el) {
       return el.split("")
-    })
-  }
-
-  $('#shake').click(function(e) {
-    e.preventDefault()
-    shake(splitCubes)
-    for (let i = 0; i < ltrs.length; i++) {
-      $('#grid div').eq(i).text(ltrs[i])
-    }
-    $("#target").focus();
-    startTimer(timeVal,0);
-  })
-
-  function shake(it) {
-    let mixCubes = []
-    while (it.length > 0) {
-      mixCubes.push(it.splice(Math.floor((it.length) * Math.random()), 1))
-    }
-    ltrs = mixCubes.map(function(el) {
-      return el[0][Math.floor(6 * Math.random())]
     })
   }
 
@@ -102,6 +48,56 @@ $(document).ready(function() {
       slot.width(250 / val).height(252 / val).addClass("slot")
       $('#grid').append(slot)
     }
+  }
+
+  $('#lengthSelect').click(function selectLength(e) {
+    e.preventDefault()
+    lengthVal = $(e.target).attr('data-value')
+  })
+
+  $('#timeSelect').click(function selectTimer(e) {
+    e.preventDefault()
+    timeVal = $(e.target).attr('data-value')
+    $('#timer').text(timeVal + ":" + "00")
+  })
+
+  function startTimer(min, sec) {
+    let m = min
+    let s = sec
+    setInterval(function() {
+      if (m >= 0 && s >= 0) { //maybe move this outside setInterval
+        console.log('m ' + m + ' s ' + s)
+        if (s == 0) {
+          s = 59
+          m--
+        } else s--
+          $('#timer').text(m.toString() + ":" + padLeft(s))
+      } else return //add reset timer function
+    }, 1000)
+  }
+
+  function padLeft(x) {
+    return x < 10 ? `0${x}` : x.toString()
+  }
+
+  $('#shake').click(function(e) {
+    e.preventDefault()
+    shake(splitCubes)
+    for (let i = 0; i < ltrs.length; i++) {
+      $('#grid div').eq(i).text(ltrs[i])
+    }
+    $("#target").focus();
+    startTimer(timeVal, 0);
+  })
+
+  function shake(it) {
+    let mixCubes = []
+    while (it.length > 0) {
+      mixCubes.push(it.splice(Math.floor((it.length) * Math.random()), 1))
+    }
+    ltrs = mixCubes.map(function(el) {
+      return el[0][Math.floor(6 * Math.random())]
+    })
   }
 
   function makeNeighborhood(x, y, board) {
