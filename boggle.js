@@ -14,13 +14,16 @@ $(document).ready(function() {
   let currentWord = []
   let splitCubes = []
   //set defaults
-  let val = 4
+  //let val = 4
   let timeVal = 3
   let lengthVal = 4
   let sel = 0
+  var timerOn = 0
+
   $('#timer').text(timeVal + ":" + "00")
-  fillGrid(val)
-  
+  fillGrid(4)
+  makeCubeArrays(fourCubes)
+
   $('#gridSelect button').click(function selectGridSize(e) {
     e.preventDefault()
     val = $(e.target).attr('data-value')
@@ -63,16 +66,24 @@ $(document).ready(function() {
   })
 
   function startTimer(min, sec) {
+
     let m = min
     let s = sec
     setInterval(function() {
+      // if (timerOn = 0) { // function for resetting
+      //
+      //   m = timeVal
+      //   s = 0
+      //   $('#timer').text(m.toString() + ":" + padLeft(s))
+      //   return false;
+      //}
       if (m >= 0 && s >= 0) { //maybe move this outside setInterval
-        // console.log('m ' + m + ' s ' + s)
+        //console.log('m ' + m + ' s ' + s)
+        $('#timer').text(m.toString() + ":" + padLeft(s))
         if (s == 0) {
           s = 59
           m--
         } else s--
-          $('#timer').text(m.toString() + ":" + padLeft(s))
       } else return //add reset timer function
     }, 1000)
   }
@@ -84,11 +95,11 @@ $(document).ready(function() {
   $('#shake').click(function(e) {
     e.preventDefault()
     shake(splitCubes)
-    for (let i = 0; i < ltrs.length; i++) {
-      $('#grid div').eq(i).text(ltrs[i])
-    }
-    $("#target").focus();
-    startTimer(timeVal, 0);
+    // for (let i = 0; i < ltrs.length; i++) {
+    //   $('#grid div').eq(i).text(ltrs[i])
+    // }
+    $("#target").focus()
+    startTimer(timeVal, 0)
   })
 
   function shake(it) {
@@ -107,21 +118,30 @@ $(document).ready(function() {
           letter: ltrs[i],
           highlighted: false
         }
+        $('#grid div').eq(i).data(grid[row][col])
+        //console.log($('#grid div').eq(i).data(grid[row][col]))
+        $('#grid div').eq(i).text(grid[row][col].letter)
+        //console.log($('#grid div').eq(i).text())
         i++
       }
     }
+
   }
 
   $(document).keydown(function(e) {
     if (e.which === 8) { //for dealing with backspace
       $('#grid>div:contains(' + currentWord[currentWord.length - 1] + ')').removeClass("blue lighten-2")
       currentWord.pop()
-      console.log(currentWord)
+      //console.log(currentWord)
     }
     if (e.which > 64 && e.which < 91) { //for selecting letters
       sel = e.key.toUpperCase()
-      $('#grid>div:contains(' + sel + ')').addClass("blue lighten-2")
-      console.log($('#grid>div:contains(' + sel + ')'))
+      let currentKey = $('#grid>div:contains(' + sel + ')').first()
+      if (currentKey.data("highlighted")) {
+        let currentKey = $('#grid>div:contains(' + sel + ')').next()
+      }
+      currentKey.addClass("blue lighten-2")
+      currentKey.data("highlighted", "true")
       currentWord.push(sel)
     }
   })
@@ -129,7 +149,7 @@ $(document).ready(function() {
   $("form").submit(function(event) {
     event.preventDefault();
     let textInput = $('input:text')
-    console.log(textInput.val())
+    //console.log(textInput.val())
     let goodWord = $('<li>').text(textInput.val())
     $('#list').append(goodWord)
     textInput.val('')
