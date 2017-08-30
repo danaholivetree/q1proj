@@ -30,8 +30,12 @@ header, main, footer {
 }
 
 .btn {
-  background-color: grey;
+  background-color: blue;
 }
+.btn:hover{
+  background-color:#AA9900
+}
+
 
 .select {
   color: black;

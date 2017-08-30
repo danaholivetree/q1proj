@@ -9,6 +9,7 @@ $(document).ready(function() {
     "aaciot abilty abjmoq acdemp acelrs adenvz ahmors bfiorx denosw dknotu eefhiy egintv egkluy ehinps elpstu gilruw"
 
   let ltrs = []
+  var grid = []
   let board = []
   let currentWord = []
   let splitCubes = []
@@ -18,7 +19,8 @@ $(document).ready(function() {
   let lengthVal = 4
   let sel = 0
   $('#timer').text(timeVal + ":" + "00")
-
+  fillGrid(val)
+  
   $('#gridSelect button').click(function selectGridSize(e) {
     e.preventDefault()
     val = $(e.target).attr('data-value')
@@ -41,7 +43,6 @@ $(document).ready(function() {
   }
 
   function fillGrid(val) {
-    console.log('filling grid')
     $('#grid').children().remove()
     for (let i = 0; i < Math.pow(val, 2); i++) {
       let slot = $('<div>')
@@ -66,7 +67,7 @@ $(document).ready(function() {
     let s = sec
     setInterval(function() {
       if (m >= 0 && s >= 0) { //maybe move this outside setInterval
-        console.log('m ' + m + ' s ' + s)
+        // console.log('m ' + m + ' s ' + s)
         if (s == 0) {
           s = 59
           m--
@@ -98,38 +99,30 @@ $(document).ready(function() {
     ltrs = mixCubes.map(function(el) {
       return el[0][Math.floor(6 * Math.random())]
     })
-  }
-
-  function makeNeighborhood(x, y, board) {
-    const neighborhood = []
-
-    if (x > 0 && x < board[0].length && y > 0 && y < board[0].length) {
-      neighborhood.push([x - 1, y])
-      neighborhood.push([x + 1, y])
-      neighborhood.push([x, y - 1])
-      neighborhood.push([x, y + 1])
-      neighborhood.push([x - 1, y - 1])
-      neighborhood.push([x - 1, y + 1])
-      neighborhood.push([x + 1, y - 1])
-      neighborhood.push([x + 1, y + 1])
+    let i = 0
+    for (let row = 0; row < Math.sqrt(ltrs.length); row++) {
+      grid.push([])
+      for (let col = 0; col < Math.sqrt(ltrs.length); col++) {
+        grid[row][col] = {
+          letter: ltrs[i],
+          highlighted: false
+        }
+        i++
+      }
     }
-
-    return neighborhood.map((el) => board[el[0]][el[1]])
   }
 
   $(document).keydown(function(e) {
-    if (e.which === 8) {
+    if (e.which === 8) { //for dealing with backspace
       $('#grid>div:contains(' + currentWord[currentWord.length - 1] + ')').removeClass("blue lighten-2")
       currentWord.pop()
       console.log(currentWord)
     }
-
-
-    if (e.which > 64 && e.which < 91) {
+    if (e.which > 64 && e.which < 91) { //for selecting letters
       sel = e.key.toUpperCase()
       $('#grid>div:contains(' + sel + ')').addClass("blue lighten-2")
+      console.log($('#grid>div:contains(' + sel + ')'))
       currentWord.push(sel)
-      console.log(currentWord)
     }
   })
 
@@ -144,6 +137,23 @@ $(document).ready(function() {
     $('#grid>div').removeClass("blue lighten-2")
 
   })
+
+  // function makeNeighborhood(x, y, board) {
+  //   const neighborhood = []
+  //
+  //   if (x > 0 && x < board[0].length && y > 0 && y < board[0].length) {
+  //     neighborhood.push([x - 1, y])
+  //     neighborhood.push([x + 1, y])
+  //     neighborhood.push([x, y - 1])
+  //     neighborhood.push([x, y + 1])
+  //     neighborhood.push([x - 1, y - 1])
+  //     neighborhood.push([x - 1, y + 1])
+  //     neighborhood.push([x + 1, y - 1])
+  //     neighborhood.push([x + 1, y + 1])
+  //   }
+  //
+  //   return neighborhood.map((el) => board[el[0]][el[1]])
+  // }
 
   //   $( "form #words" ).submit(function( event ) {
   //   event.preventDefault();
