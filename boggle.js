@@ -208,26 +208,29 @@ $(document).ready(function() {
     let textInput = $('input:text')
     let word = textInput.val()
     if (word.length >= lengthVal) {
-      let goodWord = $('<li>').text(textInput.val()).addClass("collection-item")
-      let points = word.length - lengthVal + 1
-      let pointsPrint = $('<span>').text(points).addClass("secondary-content")
-      goodWord.append(pointsPrint)
-      console.log(goodWord)
-      $('#list').append(goodWord)
-    }
+      $.getJSON("http://api.wordnik.com:80/v4/words.json/search/"+word+"?caseSensitive=true&minCorpusCount=5&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=1&maxLength=-1&skip=0&limit=1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5", function(data) {
+          if (data["totalResults"]) {
+            console.log(data)
+
+            let goodWord = $('<li>').text(word).addClass("collection-item")
+            let points = word.length - lengthVal + 1
+            let pointsPrint = $('<span>').text(points).addClass("secondary-content")
+            goodWord.append(pointsPrint)
+            console.log(goodWord)
+            $('#list').append(goodWord)
+            }
+
+          })
+        }
+
+
+
+
+
     textInput.val('')
     currentWord = []
     $('#grid>div').removeClass("blue lighten-2")
 
   })
-  //   $( "form #words" ).submit(function( event ) {
-  //   event.preventDefault();
-  //   if ( $( "input:first" ).val() === "correct" ) {
-  //     $( "span" ).text( "Validated..." ).show();
-  //     return;
-  //   }
-  //
-  //   $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
-  // });
 
 })
