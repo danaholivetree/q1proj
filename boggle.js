@@ -135,6 +135,7 @@ $(document).ready(function() {
     for (let row = 0; row < Math.sqrt(ltrs.length); row++) {
       grid.push([])
       for (let col = 0; col < Math.sqrt(ltrs.length); col++) {
+        if (ltrs[i] == 'Q') {ltrs[i] = 'Qu' }
         grid[row][col] = {
           letter: ltrs[i],
           highlighted: false,
@@ -212,6 +213,7 @@ $(document).ready(function() {
           let points = word.length - lengthVal + 1
           let pointsPrint = $('<span>').text(points).addClass("secondary-content")
           totalPoints += points
+          $('#points').text(totalPoints)
           goodWord.append(pointsPrint)
           $('#list').append(goodWord)
         }

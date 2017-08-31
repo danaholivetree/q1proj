@@ -17,11 +17,26 @@ header, main, footer {
   border: 1px solid black;
   overflow-y: scroll;
   margin: 30px 30px 0;
-  background-color: grey;
+
 }
 
 #list li{
   background-color:inherit
+}
+
+.collection-header {
+  font-weight: bold;
+}
+.collection .collection-item {
+  line-height: 0.8rem;
+  padding: 10px 5px;
+  margin: 0;
+  border-bottom: 1px solid #b0bec5;
+}
+
+.side-nav {
+  width: 300px;
+  padding-right: 25px
 }
 
 .secondary-content {
@@ -53,6 +68,14 @@ header, main, footer {
   height: 50px;
   margin: 30px 30px 30px;
 
+}
+
+#totPoints {
+  margin-left: 20px;
+}
+
+#points {
+  margin-left: 10px
 }
 
 .select {
