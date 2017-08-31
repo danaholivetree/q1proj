@@ -15,10 +15,10 @@ $(document).ready(function() {
   let splitCubes = []
   //set defaults
   let val = 4
-  let timeVal = 3
+  var timeVal = 3
   var timer
   let lengthVal = 4
-  //var timerOn = 0
+
   //var next = []
   //var clicked = 0
   //let points = 0
@@ -71,9 +71,8 @@ $(document).ready(function() {
   })
 
   function startTimer(min) {
-    let m = min
-    let s = 0
     timer = setInterval(countDown, 1000) //should be decl globally
+    m = min
   }
 
   function padLeft(x) {
@@ -81,19 +80,20 @@ $(document).ready(function() {
   }
 
   function countDown() {
-    if (m>=0 && s >= 0) {
+    if (m >= 0 && s >= 0) {
       $('#timer').text(m.toString() + ":" + padLeft(s))
       if (s == 0) {
         s = 59
         m--
       } else s--
     }
-    else endRound
+    else endRound()
   }
 
   function endRound() {
     alert("Time's Up! You got " + totalPoints + " points!")
-    stopTimer
+    stopTimer()
+    reset()
   }
 
   $('#shake').click(function(e) {
@@ -106,12 +106,12 @@ $(document).ready(function() {
     } else {
       $('#shake').text("SHAKE!")
       stopTimer()
+      reset()
     }
   })
 
-  function stopTimer(){
+  function stopTimer() {
     clearInterval(timer)
-    reset()
   }
 
   function reset() {
@@ -121,6 +121,8 @@ $(document).ready(function() {
     $('#timer').text(m.toString() + ":" + padLeft(s)) //reset timer
     $('.collection-item').remove() //clears word list
     totalPoints = 0 //clears saved points
+    $('input:text').val('') //clears input field
+    currentWord = [] //clears current word
   }
 
   function shake(it) {
@@ -135,24 +137,99 @@ $(document).ready(function() {
     for (let row = 0; row < Math.sqrt(ltrs.length); row++) {
       grid.push([])
       for (let col = 0; col < Math.sqrt(ltrs.length); col++) {
-        if (ltrs[i] == 'Q') {ltrs[i] = 'Qu' }
+        $('#grid div').eq(i).attr({
+          'data-x': col,
+          'data-y': row,
+          'data-letter': ltrs[i]
+        })
+        if (ltrs[i] == 'Q') {
+          ltrs[i] = 'Qu'
+        }
+
         grid[row][col] = {
           letter: ltrs[i],
           highlighted: false,
           x: col,
           y: row
         }
-        $('#grid div').eq(i).attr({
-          'data-x': col,
-          'data-y': row,
-          'data-letter': ltrs[i]
-        })
 
         $('#grid div').eq(i).text(grid[row][col].letter)
         i++
       }
     }
   }
+
+  $("form").submit(function(event) {
+    event.preventDefault();
+    let word = $('input:text').val()
+    //let word = textInput.val()
+    // validate(word)
+
+    validateDictionary(word, lengthVal, ltrs, function(result, reason) {
+      if (result == false) {
+        alert(reason)
+        $('input:text').val('')
+      }
+      else submitWord(word)
+    })
+  })
+
+  function validateDictionary(x, minLength, containingArray, cb) {
+    if (x.length < minLength) {
+      cb(false,'that word is too short')
+    }
+    else if (x.toUpperCase().split('').some((ch) => containingArray.indexOf(ch) === -1)) {
+      cb(false,'those letters are not all on the board')
+    }
+    else {
+      let endpoint = `http://api.wordnik.com:80/v4/word.json/${x}/definitions?limit=10&includeRelated=true&sourceDictionaries=webster&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`
+
+      $.getJSON(endpoint, function(data) {
+        // console.log(data)
+        // console.log(data.length)
+        cb((data.length !== 0), 'that word is not in the dictionary yet')
+      })
+    }
+    // $.getJSON("http://api.wordnik.com:80/v4/word.json/" + x + "/definitions?limit=10&includeRelated=true&sourceDictionaries=webster&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5", function(data) {
+    //   console.log(data)
+    //   console.log(data.length)
+    //   cb(data.length === 0)
+    // })
+  }
+
+  // function validate(thisWord) {
+  //
+  //   if (thisWord.length < lengthVal) {
+  //     alert("That word is too short!")
+  //     $('input:text').val('')
+  //   } else if () {
+  //     //console.log(validateDictionary(thisWord))
+  //     console.log('returned true that it had no entries')
+  //     alert("That word is not in this dictionary")
+  //     $('input:text').val('')
+  //
+  //   } else {
+  //     console.log("it validated. but shouldnt have bc " + validateDictionary(thisWord))
+  //     submitWord(thisWord)
+  //     $('input:text').val('')
+  //     currentWord = []
+  //   }
+  // }
+
+  function submitWord(word) {
+    let goodWord = $('<li>').text(word).addClass("collection-item")
+    let points = word.length - lengthVal + 1
+    let pointsPrint = $('<span>').text(points).addClass("secondary-content")
+    totalPoints += points
+    $('#points').text(totalPoints)
+    goodWord.append(pointsPrint)
+    $('#list').append(goodWord)
+    $('input:text').val('')
+  }
+
+
+
+  // $('#grid>div').removeClass("blue lighten-2")
 
   //
   // function makeNeighborhood(x, y, grid) {
@@ -201,30 +278,5 @@ $(document).ready(function() {
   //   return neighborhood
   // }
 
-  $("form").submit(function(event) {
-    event.preventDefault();
-    let textInput = $('input:text')
-    let word = textInput.val()
-    if (word.length >= lengthVal) {
-      $.getJSON("http://api.wordnik.com:80/v4/word.json/"+word+"/definitions?limit=10&includeRelated=true&sourceDictionaries=century%2Cwebster&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5", function(data) {
-        console.log(data)
-        if (data.length) {
-          let goodWord = $('<li>').text(word).addClass("collection-item")
-          let points = word.length - lengthVal + 1
-          let pointsPrint = $('<span>').text(points).addClass("secondary-content")
-          totalPoints += points
-          $('#points').text(totalPoints)
-          goodWord.append(pointsPrint)
-          $('#list').append(goodWord)
-        }
-
-      })
-    }
-
-    textInput.val('')
-    currentWord = []
-    $('#grid>div').removeClass("blue lighten-2")
-
-  })
 
 })
