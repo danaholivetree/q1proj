@@ -12,12 +12,20 @@ header, main, footer {
 }
 
 #list-grid {
-  height: 300px;
+  height: 400px;
   width: 200px;
   border: 1px solid black;
   overflow-y: scroll;
   margin: 30px 30px 0;
   background-color: grey;
+}
+
+#list li{
+  background-color:inherit
+}
+
+.secondary-content {
+  color:black;
 }
 
 #grid {
@@ -29,13 +37,23 @@ header, main, footer {
   background-color: grey;
 }
 
+#target {
+  color:black;
+}
+
 .btn {
-  background-color: blue;
+  background-color: #455a64;
 }
 .btn:hover{
   background-color:#AA9900
 }
 
+#words {
+  width: 250px;
+  height: 50px;
+  margin: 30px 30px 30px;
+
+}
 
 .select {
   color: black;

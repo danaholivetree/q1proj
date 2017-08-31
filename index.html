@@ -13,12 +13,12 @@
 
 <body>
   <header class="col s12 m12 l12">
-    <nav class="blue darken-3">
+    <nav class="blue-grey darken-2">
       <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo center">BOGGLE!</a>
         <a href="#" data-activates="nav-mobile" class="button-collapse">
             <i class="material-icons">menu</i></a>
-        <div id="slide-out" class="side-nav fixed grey">
+        <div id="slide-out" class="side-nav fixed blue-grey lighten-1">
           <div class="row">
 
             <span class="select col s12 m12 l12">Select Grid Size:</span>
@@ -55,26 +55,26 @@
         <div class="col l4">
           <div id="grid"></div>
           <div>
-            <form class="col s12" id="words">
-              <fieldset>
-                <label class="black-text" for="target">Find words as fast as you can!</label>
-                <input id="target" type="text" placeholder="type a word and press enter">
+            <form class="col s12 blue-grey lighten-1" id="words">
+
+                <!-- <label class="black-text" for="target">Find words as fast as you can!</label> -->
+                <input id="target" type="text" autocomplete="off" placeholder="type a word and press enter">
                 <!-- <button id="target">submit word for approval</button> -->
-              </fieldset>
+
             </form>
           </div>
         </div>
         <div class="col m4 l4">
-          <div class="timer col m12 l12">Time Left: <span id='timer'></span></div>
+          <div class="timer col m12 l12 blue-grey lighten-1">Time Left: <span id='timer'></span></div>
           <div class = "col m12 l12">
             <p> Rules:<br> Make words from the letters on the grid. Each letter you choose must be horizontally, vertically, or diagonally adjacent to the previous letter. You can't reuse a square!</p>
         </div>
       </div>
 
-        <div class="col m4 l4" id='list-grid'>
+        <div class="col m4 l4 blue-grey lighten-1" id='list-grid'>
           <ul class="collection with-header" id='list'>
-            <li class="collection-header"><h4>Wordlist</h4></li>
-            <li class="collection-item">Word<span class="secondary-content">Points</span></li>
+            <!-- <li class="collection-header"><h5>Wordlist</h5></li> -->
+            <li class="collection-header">Word<span class="secondary-content">Points</span></li>
 
         </ul>
 
