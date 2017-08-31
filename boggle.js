@@ -16,12 +16,15 @@ $(document).ready(function() {
   //set defaults
   let val = 4
   let timeVal = 3
+  var timer
   let lengthVal = 4
-  var timerOn = 0
-  var next = []
-  var clicked = 0
-  let points = 0
+  //var timerOn = 0
+  //var next = []
+  //var clicked = 0
+  //let points = 0
   let totalPoints = 0
+  let m = timeVal
+  let s = 0
   $('#timer').text(timeVal + ":" + "00")
   fillGrid(4)
   makeCubeArrays(fourCubes)
@@ -67,40 +70,30 @@ $(document).ready(function() {
     $('#timer').text(timeVal + ":" + "00")
   })
 
-  function startTimer(min, sec) {
-
+  function startTimer(min) {
     let m = min
-    let s = sec
-
-    if (timerOn == 0) { // function for resetting
-      m = timeVal
-      s = 0
-      $('#timer').text(m.toString() + ":" + padLeft(s))
-      return
-    }
-
-
-    setInterval(function() {
-      if (m >= 0 && s >= 0 && timerOn == 1) {
-        $('#timer').text(m.toString() + ":" + padLeft(s))
-        if (s == 0) {
-          s = 59
-          m--
-        } else s--
-      }
-    }, 1000)
-    if (m == 0 && s == 0) {
-      console.log(m + "min, sec " + s)
-      alert("Time's Up! You got " + totalPoints + " points!")
-      m = timeVal
-      s = 0
-      timerOn = 0
-      console.log('timeup alert and reset happened')
-    }
+    let s = 0
+    timer = setInterval(countDown, 1000) //should be decl globally
   }
 
   function padLeft(x) {
     return x < 10 ? `0${x}` : x.toString()
+  }
+
+  function countDown() {
+    if (m>=0 && s >= 0) {
+      $('#timer').text(m.toString() + ":" + padLeft(s))
+      if (s == 0) {
+        s = 59
+        m--
+      } else s--
+    }
+    else endRound
+  }
+
+  function endRound() {
+    alert("Time's Up! You got " + totalPoints + " points!")
+    stopTimer
   }
 
   $('#shake').click(function(e) {
@@ -108,22 +101,26 @@ $(document).ready(function() {
       e.preventDefault()
       shake(splitCubes)
       $("#target").focus()
-      timerOn = 1
-      startTimer(timeVal, 0)
+      startTimer(timeVal)
       $('#shake').text("reset")
     } else {
       $('#shake').text("SHAKE!")
-      reset()
+      stopTimer()
     }
   })
 
+  function stopTimer(){
+    clearInterval(timer)
+    reset()
+  }
+
   function reset() {
-    timerOn = 0
-    fillGrid(val)
-    m = timeVal
+    fillGrid(val) //clears and redraws the board
+    m = timeVal //resets internal timer to last selected game length
     s = 0
-    $('#timer').text(m.toString() + ":" + padLeft(s))
-    $('.collection-item').remove()
+    $('#timer').text(m.toString() + ":" + padLeft(s)) //reset timer
+    $('.collection-item').remove() //clears word list
+    totalPoints = 0 //clears saved points
   }
 
   function shake(it) {
@@ -155,86 +152,61 @@ $(document).ready(function() {
       }
     }
   }
-  // $('#grid div').click(function(e){
+
   //
-  //   if (clicked == 0 || findElement($(e.target), next)){
-  //     let sel = $(e.target)
-  //     console.log(grid[sel.data('y')][sel.data('x')])
-  //     currentWord.push($(e.target).data('letter'))
-  //     console.log("currentWord= "+currentWord)
-  //     $(e.target).addClass("blue lighten-2")
-  //     grid[sel.data('y')][sel.data('x')].highlighted==true
-  //     next = makeNeighborhood($(e.target).data('x'), $(e.target).data('y'), grid)
-  //     console.log("next clickable neighborhood= ", next)
-  //     clicked = 1
-  //   }
-  //   else return
-  // })
-  //
-  // function findElement(tar, neigh){
-  //   for (let i = 0; i < neigh.length; i++ ) {
-  //     if (tar.data('x') == neigh[i].x && tar.data('y') == neigh[i].y) {
-  //       return true
+  // function makeNeighborhood(x, y, grid) {
+  //   const neighborhood = []
+  //   if (y > 0 && x > 0) {
+  //     if (grid[y - 1][x - 1].highlighted == false) {
+  //       neighborhood.push(grid[y - 1][x - 1])
   //     }
   //   }
-  //   return false
+  //   if (y > 0) {
+  //     if (grid[y - 1][x].highlighted == false) {
+  //       neighborhood.push(grid[y - 1][x])
+  //     }
+  //   }
+  //   if (y < (grid[0].length - 1) && x < (grid[0].length - 1)) {
+  //     if (grid[y + 1][x + 1].highlighted == false) {
+  //       neighborhood.push(grid[y + 1][x + 1])
+  //     }
+  //   }
+  //
+  //   if (x < (grid[0].length - 1)) {
+  //     if (grid[y][x + 1].highlighted == false) {
+  //       neighborhood.push(grid[y][x + 1])
+  //     }
+  //   }
+  //   if (x < (grid[0].length - 1) && y > 0) {
+  //     if (grid[x + 1][y - 1].highlighted == false) {
+  //       neighborhood.push(grid[x + 1][y - 1])
+  //     }
+  //   }
+  //   if (y < (grid[0].length - 1)) {
+  //     if (grid[y + 1][x].highlighted == false) {
+  //       neighborhood.push(grid[y + 1][x])
+  //     }
+  //   }
+  //   if (y < (grid[0].length - 1) && x > 0) {
+  //     if (grid[y + 1][x - 1].highlighted == false) {
+  //       neighborhood.push(grid[y + 1][x - 1])
+  //     }
+  //   }
+  //   if (x > 0) {
+  //     if (grid[y][x - 1].highlighted == false) {
+  //       neighborhood.push(grid[y][x - 1])
+  //     }
+  //   }
+  //   return neighborhood
   // }
-
-  function makeNeighborhood(x, y, grid) {
-    const neighborhood = []
-    if (y > 0 && x > 0) {
-      if (grid[y - 1][x - 1].highlighted == false) {
-        neighborhood.push(grid[y - 1][x - 1])
-      }
-    }
-    if (y > 0) {
-      if (grid[y - 1][x].highlighted == false) {
-        neighborhood.push(grid[y - 1][x])
-      }
-    }
-    if (y < (grid[0].length - 1) && x < (grid[0].length - 1)) {
-      if (grid[y + 1][x + 1].highlighted == false) {
-        neighborhood.push(grid[y + 1][x + 1])
-      }
-    }
-
-    if (x < (grid[0].length - 1)) {
-      if (grid[y][x + 1].highlighted == false) {
-        neighborhood.push(grid[y][x + 1])
-      }
-    }
-    if (x < (grid[0].length - 1) && y > 0) {
-      if (grid[x + 1][y - 1].highlighted == false) {
-        neighborhood.push(grid[x + 1][y - 1])
-      }
-    }
-    if (y < (grid[0].length - 1)) {
-      if (grid[y + 1][x].highlighted == false) {
-        neighborhood.push(grid[y + 1][x])
-      }
-    }
-    if (y < (grid[0].length - 1) && x > 0) {
-      if (grid[y + 1][x - 1].highlighted == false) {
-        neighborhood.push(grid[y + 1][x - 1])
-      }
-    }
-    if (x > 0) {
-      if (grid[y][x - 1].highlighted == false) {
-        neighborhood.push(grid[y][x - 1])
-      }
-    }
-    return neighborhood
-    //console.log('neighborhood length= '+neighborhood.length)
-
-    //  return neighborhood.map((el) => grid[el[0]][el[1]])
-  }
 
   $("form").submit(function(event) {
     event.preventDefault();
     let textInput = $('input:text')
     let word = textInput.val()
     if (word.length >= lengthVal) {
-      $.getJSON("http://api.wordnik.com:80/v4/word.json/" + word + "/definitions?limit=200&includeRelated=true&sourceDictionaries=webster&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5", function(data) {
+      $.getJSON("http://api.wordnik.com:80/v4/word.json/"+word+"/definitions?limit=10&includeRelated=true&sourceDictionaries=century%2Cwebster&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5", function(data) {
+        console.log(data)
         if (data.length) {
           let goodWord = $('<li>').text(word).addClass("collection-item")
           let points = word.length - lengthVal + 1
@@ -246,10 +218,6 @@ $(document).ready(function() {
 
       })
     }
-
-
-
-
 
     textInput.val('')
     currentWord = []
