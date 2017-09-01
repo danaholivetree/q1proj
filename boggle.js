@@ -176,7 +176,7 @@ $(document).ready(function() {
 
     validate(word, lengthVal, ltrs, function(result, reason) {
       if (result == false) {
-        alert(reason)
+        Materialize.toast(reason, 2000)
         $('input:text').val('')
       } else submitWord(word)
     })
