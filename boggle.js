@@ -128,6 +128,7 @@ $(document).ready(function() {
     $('#timer').text(m.toString() + ":" + padLeft(s)) //reset timer
     $('.collection-item').remove() //clears word list
     totalPoints = 0 //clears saved points
+    $('#points').text(totalPoints)
     $('input:text').val('') //clears input field
     currentWord = [] //clears current word
   }
@@ -195,6 +196,7 @@ $(document).ready(function() {
       })
     }
   }
+
 
   function submitWord(word) {
     let goodWord = $('<li>').text(word).addClass("collection-item")
