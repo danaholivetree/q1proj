@@ -19,6 +19,9 @@ header, main, footer {
   margin: 30px 30px 0;
 
 }
+nav {
+  background-color: #594157
+}
 
 #list li{
   background-color:inherit
@@ -59,8 +62,14 @@ header, main, footer {
 .btn {
   background-color: #455a64;
 }
+.btn:focus {
+  background-color:#594157
+}
 .btn:hover{
-  background-color:#AA9900
+  background-color: #594157
+}
+.btn.active {
+  background-color: #594157
 }
 
 #words {

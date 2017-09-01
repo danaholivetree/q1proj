@@ -11,9 +11,9 @@
   </script>
 </head>
 
-<body>
+<body class="grey">
   <header class="col s12 m12 l12">
-    <nav class="blue-grey darken-2">
+    <nav class="">
       <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo center">BOGGLE!</a>
         <a href="#" data-activates="nav-mobile" class="button-collapse">
@@ -30,7 +30,7 @@
 
             <span class="select col s12 m12 l12">Select Minimum Word Length:</span>
             <div id="lengthSelect">
-              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=3>3</a></button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn active" data-value=3>3</a></button>
               <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=4>4</a></button>
               <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=5>5</a></button>
             </div>
@@ -38,7 +38,7 @@
             <span class="select col s12 m12 l12">Select Timer</span>
             <div id="timeSelect">
               <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=2>2:00</button>
-              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=3>3:00</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn active" data-value=3>3:00</button>
               <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=4>4:00</button>
             </div>
             <span class="select col s12 m12 l12">Ready?</span>
@@ -57,36 +57,31 @@
           <div>
             <form class="col s12 blue-grey lighten-1" id="words">
 
-                <!-- <label class="black-text" for="target">Find words as fast as you can!</label> -->
-                <input id="target" type="text" autocomplete="off" placeholder="type a word and press enter">
-                <!-- <button id="target">submit word for approval</button> -->
+              <!-- <label class="black-text" for="target">Find words as fast as you can!</label> -->
+              <input id="target" type="text" autocomplete="off" placeholder="type a word and press enter">
+              <!-- <button id="target">submit word for approval</button> -->
 
             </form>
           </div>
         </div>
         <div class="col m4 l4">
           <div class="timer col m12 l12 blue-grey lighten-1">Time Left: <span id='timer'></span><span id="totPoints">Total Points:</span><span id='points'></span></div>
-          <div class = "col m12 l12">
+          <div class="col m12 l12">
             <p> Rules:<br> Make words from the letters on the grid. Each letter you choose must be horizontally, vertically, or diagonally adjacent to the previous letter. You can't reuse a square!</p>
+          </div>
         </div>
-      </div>
 
         <div class="col m4 l4 blue-grey lighten-1" id='list-grid'>
           <ul class="collection with-header" id='list'>
-            <!-- <li class="collection-header"><h5>Wordlist</h5></li> -->
             <li class="collection-header">Word<span class="secondary-content">Points</span></li>
 
-        </ul>
-
-
+          </ul>
+        </div>
       </div>
 
-
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
-    <script type="text/javascript" src="boggle.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+      <script type="text/javascript" src="boggle.js"></script>
 </body>
 
 </html>

@@ -29,8 +29,12 @@ $(document).ready(function() {
   fillGrid(4)
   makeCubeArrays(fourCubes)
 
+
+
   $('#gridSelect button').click(function selectGridSize(e) {
     e.preventDefault()
+    $(this).toggleClass('active');
+    $(this).siblings().removeClass('active')
     val = $(e.target).attr('data-value')
     if (val == 4) {
       makeCubeArrays(fourCubes)
@@ -59,13 +63,17 @@ $(document).ready(function() {
     }
   }
 
-  $('#lengthSelect').click(function selectLength(e) {
+  $('#lengthSelect button').click(function selectLength(e) {
     e.preventDefault()
+    $(this).toggleClass('active');
+    $(this).siblings().removeClass('active')
     lengthVal = $(e.target).attr('data-value')
   })
 
-  $('#timeSelect').click(function selectTimer(e) {
+  $('#timeSelect button').click(function selectTimer(e) {
     e.preventDefault()
+    $(this).toggleClass('active');
+    $(this).siblings().removeClass('active')
     timeVal = $(e.target).attr('data-value')
     $('#timer').text(timeVal + ":" + "00")
   })
@@ -86,8 +94,7 @@ $(document).ready(function() {
         s = 59
         m--
       } else s--
-    }
-    else endRound()
+    } else endRound()
   }
 
   function endRound() {
@@ -165,23 +172,20 @@ $(document).ready(function() {
     //let word = textInput.val()
     // validate(word)
 
-    validateDictionary(word, lengthVal, ltrs, function(result, reason) {
+    validate(word, lengthVal, ltrs, function(result, reason) {
       if (result == false) {
         alert(reason)
         $('input:text').val('')
-      }
-      else submitWord(word)
+      } else submitWord(word)
     })
   })
 
-  function validateDictionary(x, minLength, containingArray, cb) {
+  function validate(x, minLength, containingArray, cb) {
     if (x.length < minLength) {
-      cb(false,'that word is too short')
-    }
-    else if (x.toUpperCase().split('').some((ch) => containingArray.indexOf(ch) === -1)) {
-      cb(false,'those letters are not all on the board')
-    }
-    else {
+      cb(false, 'that word is too short')
+    } else if (x.toUpperCase().split('').some((ch) => containingArray.indexOf(ch) === -1)) {
+      cb(false, 'those letters are not all on the board')
+    } else {
       let endpoint = `http://api.wordnik.com:80/v4/word.json/${x}/definitions?limit=10&includeRelated=true&sourceDictionaries=webster&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`
 
       $.getJSON(endpoint, function(data) {
@@ -190,31 +194,7 @@ $(document).ready(function() {
         cb((data.length !== 0), 'that word is not in the dictionary yet')
       })
     }
-    // $.getJSON("http://api.wordnik.com:80/v4/word.json/" + x + "/definitions?limit=10&includeRelated=true&sourceDictionaries=webster&useCanonical=true&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5", function(data) {
-    //   console.log(data)
-    //   console.log(data.length)
-    //   cb(data.length === 0)
-    // })
   }
-
-  // function validate(thisWord) {
-  //
-  //   if (thisWord.length < lengthVal) {
-  //     alert("That word is too short!")
-  //     $('input:text').val('')
-  //   } else if () {
-  //     //console.log(validateDictionary(thisWord))
-  //     console.log('returned true that it had no entries')
-  //     alert("That word is not in this dictionary")
-  //     $('input:text').val('')
-  //
-  //   } else {
-  //     console.log("it validated. but shouldnt have bc " + validateDictionary(thisWord))
-  //     submitWord(thisWord)
-  //     $('input:text').val('')
-  //     currentWord = []
-  //   }
-  // }
 
   function submitWord(word) {
     let goodWord = $('<li>').text(word).addClass("collection-item")
@@ -227,9 +207,6 @@ $(document).ready(function() {
     $('input:text').val('')
   }
 
-
-
-  // $('#grid>div').removeClass("blue lighten-2")
 
   //
   // function makeNeighborhood(x, y, grid) {
