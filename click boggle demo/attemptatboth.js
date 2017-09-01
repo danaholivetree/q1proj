@@ -60,6 +60,7 @@ $(document).ready(function() {
   function continueWord(e){
     e.preventDefault()
     if (mouseDown) {
+      
       let x = $(e.target).data('x')
       let y = $(e.target).data('y')
       if (grid[x][y].highlighted == false) {
@@ -135,6 +136,7 @@ $(document).ready(function() {
       let slot = $('<div>')
       slot.width(250 / val).height(252 / val).addClass("slot")
       $('#grid').append(slot)
+      $('#grid').css('cursor','pointer');
     }
   }
 
@@ -238,7 +240,8 @@ $(document).ready(function() {
           x: col,
           y: row
         }
-        let thisLetter = $('<span>').text(grid[row][col].letter).addClass("unselectable")
+        let thisLetter = $('<span>').addClass("txt").text(grid[row][col].letter)
+
         $('#grid div').eq(i).append(thisLetter)
         i++
       }
