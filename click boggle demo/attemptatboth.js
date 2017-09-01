@@ -48,6 +48,7 @@ $(document).ready(function() {
   function startWord(e) {
     e.preventDefault()
     mouseDown = true;
+    console.log($(e.target))
     let x = $(e.target).data('x')
     let y = $(e.target).data('y')
     if (grid[x][y].highlighted == false) {
@@ -60,7 +61,7 @@ $(document).ready(function() {
   function continueWord(e){
     e.preventDefault()
     if (mouseDown) {
-      
+
       let x = $(e.target).data('x')
       let y = $(e.target).data('y')
       if (grid[x][y].highlighted == false) {
@@ -133,8 +134,8 @@ $(document).ready(function() {
   function fillGrid(val) {
     $('#grid').children().remove()
     for (let i = 0; i < Math.pow(val, 2); i++) {
-      let slot = $('<div>')
-      slot.width(250 / val).height(252 / val).addClass("slot")
+      let slot = $('<div style="margin:5px;">')
+      slot.width((250 / val)-10).height((252 / val)-10).addClass("slot")
       $('#grid').append(slot)
       $('#grid').css('cursor','pointer');
     }
@@ -240,9 +241,9 @@ $(document).ready(function() {
           x: col,
           y: row
         }
-        let thisLetter = $('<span>').addClass("txt").text(grid[row][col].letter)
+        // let thisLetter = $('<div>').addClass("txt"))
 
-        $('#grid div').eq(i).append(thisLetter)
+        $('#grid div').eq(i).text(grid[row][col].letter).addClass('txt unselectable')
         i++
       }
     }
