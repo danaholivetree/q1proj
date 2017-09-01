@@ -18,7 +18,7 @@ $(document).ready(function() {
   let val = 4
   var timeVal = 3
   var timer
-  let lengthVal = 4
+  let lengthVal = 3
   let totalPoints = 0
   let m = timeVal
   let s = 0
@@ -243,7 +243,7 @@ $(document).ready(function() {
         }
         // let thisLetter = $('<div>').addClass("txt"))
 
-        $('#grid div').eq(i).text(grid[row][col].letter).addClass('txt unselectable')
+        $('#grid div').eq(i).text(grid[row][col].letter).addClass('unselectable')
         i++
       }
     }
