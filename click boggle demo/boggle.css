@@ -1,0 +1,121 @@
+body {
+  background-color: #AA9900;
+}
+header, main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#list-grid {
+  height: 400px;
+  width: 200px;
+  border: 1px solid black;
+  overflow-y: scroll;
+  margin: 30px 30px 0;
+
+}
+nav {
+  background-color: #594157
+}
+
+#list li{
+  background-color:inherit
+}
+
+.collection-header {
+  font-weight: bold;
+}
+.collection .collection-item {
+  line-height: 0.8rem;
+  padding: 10px 5px;
+  margin: 0;
+  border-bottom: 1px solid #b0bec5;
+}
+
+.side-nav {
+  width: 300px;
+  padding-right: 25px
+}
+
+.secondary-content {
+  color:black;
+}
+
+#grid {
+  height: 252px;
+  width: 252px;
+  border: 1px solid black;
+  margin: 30px 30px 0;
+  float:left;
+  background-color: grey;
+}
+
+#target {
+  color:black;
+}
+
+.btn {
+  background-color: #455a64;
+}
+.btn:focus {
+  background-color:#594157
+}
+.btn:hover{
+  background-color: #594157
+}
+.btn.active {
+  background-color: #594157
+}
+
+#words {
+  width: 250px;
+  height: 50px;
+  margin: 30px 30px 30px;
+
+}
+
+#totPoints {
+  margin-left: 20px;
+}
+
+#points {
+  margin-left: 10px
+}
+
+.select {
+  color: black;
+  text-align: center;
+  background-color: ;
+}
+
+.timer {
+  float:left;
+  margin: 30px 30px 0;
+  background-color: grey;
+  border: 1px solid black;
+
+}
+
+.slot {
+  height: 50px;
+  width: 50px;
+
+  float: left;
+  border: 1px black solid;
+  font-size: 36px;
+  text-align:center;
+}

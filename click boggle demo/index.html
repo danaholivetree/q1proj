@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Boggle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+  <link rel="stylesheet" href="boggle.css">
+  </script>
+</head>
+
+<body class="grey">
+  <header class="col s12 m12 l12">
+    <nav class="">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo center">BOGGLE!</a>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
+<!--
+        <ul id="nav-mobile" class="side-nav">
+          <div class="row">
+
+            <span class="select col s12 m12 l12">Select Grid Size:</span>
+            <div id="gridSelect">
+              <button class="col s3 m3 l3 btn offset-s1 offset-m1 offset-l1 active" data-value=4>4X4</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=5>5X5</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=6></button>
+            </div>
+
+            <span class="select col s12 m12 l12">Select Minimum Word Length:</span>
+            <div id="lengthSelect">
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn active" data-value=3>3</a></button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=4>4</a></button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=5>5</a></button>
+            </div>
+
+            <span class="select col s12 m12 l12">Select Timer</span>
+            <div id="timeSelect">
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=2>2:00</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn active" data-value=3>3:00</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=4>4:00</button>
+            </div>
+            <span class="select col s12 m12 l12">Ready?</span>
+            <button class="col s4 m4 l4 offset-s4 offset-m4 offset-l4 btn" id="shake">SHAKE!</button>
+
+          </div>
+
+        </ul> -->
+
+
+
+
+        <div id="slide-out" class="side-nav fixed blue-grey lighten-1">
+          <div class="row">
+
+            <span class="select col s12 m12 l12">Select Grid Size:</span>
+            <div id="gridSelect">
+              <button class="col s3 m3 l3 btn offset-s1 offset-m1 offset-l1 active" data-value=4>4X4</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=5>5X5</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=6></button>
+            </div>
+
+            <span class="select col s12 m12 l12">Select Minimum Word Length:</span>
+            <div id="lengthSelect">
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn active" data-value=3>3</a></button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=4>4</a></button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=5>5</a></button>
+            </div>
+
+            <span class="select col s12 m12 l12">Select Timer</span>
+            <div id="timeSelect">
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=2>2:00</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn active" data-value=3>3:00</button>
+              <button class="col s3 m3 l3 offset-s1 offset-m1 offset-l1 btn" data-value=4>4:00</button>
+            </div>
+            <span class="select col s12 m12 l12">Ready?</span>
+            <button class="col s4 m4 l4 offset-s4 offset-m4 offset-l4 btn" id="shake">SHAKE!</button>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <div class="col l4">
+          <div id="grid"></div>
+          <div>
+            <form class="col s12 blue-grey lighten-1" id="words">
+
+              <!-- <label class="black-text" for="target">Find words as fast as you can!</label> -->
+              <input id="target" type="text" autocomplete="off" placeholder="type a word and press enter">
+              <!-- <button id="target">submit word for approval</button> -->
+
+            </form>
+          </div>
+        </div>
+        <div class="col m4 l4">
+          <div class="timer col m12 l12 blue-grey lighten-1">Time Left: <span id='timer'></span><span id="totPoints">Total Points:</span><span id='points'></span></div>
+          <div class="col m12 l12">
+            <p> Rules:<br> Make words from the letters on the grid. Each letter you choose must be horizontally, vertically, or diagonally adjacent to the previous letter. You can't reuse a square!</p>
+          </div>
+        </div>
+
+        <div class="col m4 l4 blue-grey lighten-1" id='list-grid'>
+          <ul class="collection with-header" id='list'>
+            <li class="collection-header">Word<span class="secondary-content">Points</span></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+      <script type="text/javascript" src="attemptatboth.js"></script>
+</body>
+
+</html>
